@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
 
-const BACKEND_URL = 'https://luct-reporting-app-bmx1.onrender.com/api/reports/excel';
+const const BACKEND_URL = "https://luct-reporting.onrender.com/api/reports/excel";
 
 export default function PlMonitoringScreen() {
   const { user, registerSub } = useAuth();
