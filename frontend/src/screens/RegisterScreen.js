@@ -53,7 +53,7 @@ export default function RegisterScreen({ navigation }) {
         <Text style={styles.title}>Create Account</Text>
         
         <View style={styles.inputGroup}><Text style={styles.label}>Full Name</Text><TextInput style={styles.input} placeholder="Enter your full name" value={name} onChangeText={setName} autoCapitalize="words" /></View>
-        <View style={styles.inputGroup}><Text style={styles.label}>Email Address</Text><TextInput style={styles.input} placeholder="you@luct.edu.my" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" /></View>
+        <View style={styles.inputGroup}><Text style={styles.label}>Email Address</Text><TextInput style={styles.input} placeholder="you@luct.ac.ls" value={email} onChangeText={setEmail} keyboardType="email-address" autoCapitalize="none" /></View>
         <View style={styles.inputGroup}><Text style={styles.label}>Password</Text><TextInput style={styles.input} placeholder="Min. 6 characters" value={password} onChangeText={setPassword} secureTextEntry autoCapitalize="none" /></View>
         
         <View style={styles.inputGroup}><Text style={styles.label}>Faculty</Text>

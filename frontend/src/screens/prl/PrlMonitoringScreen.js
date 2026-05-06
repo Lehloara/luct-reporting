@@ -7,7 +7,7 @@ import SearchBar from '../../components/SearchBar';
 import * as FileSystem from 'expo-file-system/legacy';
 import * as Sharing from 'expo-sharing';
 
-const const BACKEND_URL = "https://luct-reporting.onrender.com/api/reports/excel";
+const BACKEND_URL = "https://luct-reporting.onrender.com/api/reports/excel";
 
 export default function PrlMonitoringScreen() {
   const { user, registerSub } = useAuth();
