@@ -11,16 +11,15 @@ if (process.env.FIREBASE_SERVICE_ACCOUNT_KEY) {
     throw new Error("Invalid Firebase Service Account Key format");
   }
 } else {
-  
-  const path = require('path');
-  serviceAccount = require(path.join(__dirname, '../../serviceAccountKey.json'));
+  throw new Error("FIREBASE_SERVICE_ACCOUNT_KEY is missing in environment variables");
 }
 
 if (!admin.apps.length) {
   admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    projectId: 'luct-reporting' 
+    projectId: 'luct-reporting'
   });
+
   console.log("✅ Firebase Admin Initialized");
 }
 
