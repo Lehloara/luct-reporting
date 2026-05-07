@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function StudentAttendanceScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [records, setRecords] = useState([]);
   const [classCode, setClassCode] = useState('');
   const [search, setSearch] = useState('');
@@ -34,13 +34,13 @@ export default function StudentAttendanceScreen() {
              if (error.code !== 'permission-denied') console.error(error);
           });
           
-          registerSub(unsub);
+          (unsub);
           return () => unsub();
         }
       } catch (e) { console.error(e); } finally { setLoading(false); }
     };
     init();
-  }, [user, registerSub]);
+  }, [user, ]);
 
   const filtered = records.filter(r => 
     (r.status || '').toLowerCase().includes(search.toLowerCase()) ||

@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function PlReportsScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [reports, setReports] = useState([]);
   const [faculty, setFaculty] = useState('');
   const [search, setSearch] = useState('');
@@ -25,9 +25,9 @@ export default function PlReportsScreen() {
       data.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
       setReports(data); setLoading(false);
     });
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [faculty, registerSub]);
+  }, [faculty, ]);
 
   const filtered = reports.filter(r => (r.courseCode || r.lecturerName || r.prlFeedback || '').toLowerCase().includes(search.toLowerCase()));
   if (loading || !faculty) return <ActivityIndicator style={styles.center} size="large" color="#007AFF" />;

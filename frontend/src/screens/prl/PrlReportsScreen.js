@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function PrlReportsScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [reports, setReports] = useState([]);
   const [faculty, setFaculty] = useState('');
   const [search, setSearch] = useState('');
@@ -29,9 +29,9 @@ export default function PrlReportsScreen() {
       data.sort((a, b) => (b.createdAt?.seconds || 0) - (a.createdAt?.seconds || 0));
       setReports(data); setLoading(false);
     });
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [faculty, registerSub]);
+  }, [faculty, ]);
 
   const handleSaveFeedback = async () => {
     if (!feedback.trim()) return Alert.alert('Error', 'Feedback cannot be empty');

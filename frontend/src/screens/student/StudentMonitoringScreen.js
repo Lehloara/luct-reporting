@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function StudentMonitoringScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [courses, setCourses] = useState([]);
   const [classCode, setClassCode] = useState('');
   const [search, setSearch] = useState('');
@@ -25,13 +25,13 @@ export default function StudentMonitoringScreen() {
             setCourses(snap.docs.map(d => ({ id: d.id, ...d.data() })));
             setLoading(false);
           });
-          registerSub(unsub);
+          (unsub);
           return () => unsub();
         }
       } catch (e) { console.error(e); } finally { setLoading(false); }
     };
     init();
-  }, [user, registerSub]);
+  }, [user, ]);
 
   const filtered = courses.filter(c => 
     (c.courseCode || '').toLowerCase().includes(search.toLowerCase()) ||

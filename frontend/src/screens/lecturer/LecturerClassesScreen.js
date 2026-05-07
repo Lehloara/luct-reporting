@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function LecturerClassesScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [classes, setClasses] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
@@ -17,9 +17,9 @@ export default function LecturerClassesScreen() {
       setClasses(snap.docs.map(d => ({ id: d.id, ...d.data() })));
       setLoading(false);
     });
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [user, registerSub]);
+  }, [user, ]);
 
   const filtered = classes.filter(c => (c.courseCode || c.name || '').toLowerCase().includes(search.toLowerCase()));
   if (loading) return <ActivityIndicator style={styles.center} size="large" color="#007AFF" />;

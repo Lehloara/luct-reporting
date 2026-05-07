@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function StudentRatingScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [courses, setCourses] = useState([]);
   const [classCode, setClassCode] = useState('');
   const [search, setSearch] = useState('');
@@ -25,12 +25,12 @@ export default function StudentRatingScreen() {
         setClassCode(code);
         const q = query(collection(db, 'courses'), where('classCode', '==', code));
         const unsub = onSnapshot(q, (snap) => setCourses(snap.docs.map(d => ({ id: d.id, ...d.data() }))));
-        registerSub(unsub);
+        (unsub);
         return () => unsub();
       }
     };
     init();
-  }, [user, registerSub]);
+  }, [user, ]);
 
   const checkExistingRating = async (courseId) => {
     const q = query(collection(db, 'ratings'), where('studentId', '==', user.uid), where('courseId', '==', courseId));

@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import { Picker } from '@react-native-picker/picker';
 
 export default function LecturerAttendanceScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [classes, setClasses] = useState([]);
   const [selectedClassCode, setSelectedClassCode] = useState('');
   const [students, setStudents] = useState([]);
@@ -17,9 +17,9 @@ export default function LecturerAttendanceScreen() {
     const unsub = onSnapshot(q, (snap) => {
       setClasses(snap.docs.map(d => d.data()));
     });
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [user, registerSub]);
+  }, [user, ]);
 
   useEffect(() => {
     if (!selectedClassCode) { 
@@ -42,9 +42,9 @@ export default function LecturerAttendanceScreen() {
       setLoading(false);
     });
     
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [selectedClassCode, registerSub]);
+  }, [selectedClassCode, ]);
 
   const markAttendance = async (studentId, name, status) => {
     try {

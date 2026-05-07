@@ -1,4 +1,4 @@
-import React, {createContext,useState,useEffect,useContext,useRef} from "react";
+import React, { createContext, useState, useEffect, useContext } from "react";
 import { onAuthStateChanged, signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { auth, db } from "../config/firebase";
@@ -8,60 +8,41 @@ export const useAuth = () => useContext(AuthContext);
 
 export const AuthProvider = ({ children }) => {
   const [user, setUser] = useState(null);
-  const [role, setRole] = useState(null);
+
+  // ✅ default prevents blank UI issues
+  const [role, setRole] = useState("student");
+
   const [loading, setLoading] = useState(true);
-  const subsRef = useRef([]);
-  const registerSub = (unsub) => {
-    subsRef.current.push(unsub);
-  };
-  const clearSubs = () => {
-    subsRef.current.forEach((fn) => {
-      try {
-        fn();
-      } catch (e) {}
-    });
-    subsRef.current = [];
-  };
+
   useEffect(() => {
-    const unsubAuth = onAuthStateChanged(auth, async (firebaseUser) => {
-      try {
-        if (firebaseUser) {
-          setUser(firebaseUser);
-          const userRef = doc(db, "users", firebaseUser.uid);
-          const snap = await getDoc(userRef);
-          setRole(snap.exists() ? snap.data().role : "student");
-        } else {
-          clearSubs();
-          setUser(null);
-          setRole(null);
-        }
-      } catch (error) {
-        console.log("AuthContext error:", error);
+    const unsub = onAuthStateChanged(auth, async (firebaseUser) => {
+      console.log("AUTH CHANGE:", firebaseUser?.email);
+
+      if (firebaseUser) {
+        setUser(firebaseUser);
+
+        const snap = await getDoc(doc(db, "users", firebaseUser.uid));
+
+        setRole(snap.exists() ? snap.data().role : "student");
+      } else {
+        setUser(null);
         setRole("student");
-      } finally {
-        setLoading(false);
       }
+
+      setLoading(false);
     });
-    return () => {
-      unsubAuth();
-      clearSubs();
-    };
+
+    return unsub;
   }, []);
+
   const logout = async () => {
-    try {
-      clearSubs();
-      await signOut(auth);
-      setUser(null);
-      setRole(null);
-    } catch (error) {
-      console.log("Logout error:", error);
-    }
+    await signOut(auth);
+    setUser(null);
+    setRole("student");
   };
-  if (loading) return null;
+
   return (
-    <AuthContext.Provider
-      value={{ user, role, loading, registerSub, logout }}
-    >
+    <AuthContext.Provider value={{ user, role, loading, logout }}>
       {children}
     </AuthContext.Provider>
   );

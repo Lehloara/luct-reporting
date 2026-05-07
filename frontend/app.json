@@ -6,39 +6,51 @@
     "orientation": "portrait",
     "icon": "./assets/images/app-icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
     "platforms": [
-      "ios",
       "android",
+      "ios",
       "web"
     ],
+
     "splash": {
       "image": "./assets/images/logo.png",
       "resizeMode": "contain",
       "backgroundColor": "#ffffff"
     },
-    "ios": {
-      "supportsTablet": true
-    },
+
     "android": {
+      "package": "com.lehloara.luctreportingapp",
+
+      "permissions": [
+        "INTERNET"
+      ],
+
       "adaptiveIcon": {
         "foregroundImage": "./assets/images/app-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
-      "package": "com.lehloara.luctreportingapp"
+
+      "edgeToEdgeEnabled": true
     },
+
+    "ios": {
+      "supportsTablet": true
+    },
+
     "web": {
       "favicon": "./assets/images/logo.png"
     },
+
+    "plugins": [
+      "expo-font"
+    ],
+
     "extra": {
       "eas": {
         "projectId": "fef4e471-fc9b-4f45-b238-cbad9d1f0c9e"
       }
     },
-    "plugins": [
-      "expo-font"
-    ],
+
     "owner": "lehloara"
   }
 }

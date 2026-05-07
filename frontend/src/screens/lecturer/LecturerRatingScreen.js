@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function LecturerRatingScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [ratings, setRatings] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
@@ -14,9 +14,9 @@ export default function LecturerRatingScreen() {
   useEffect(() => {
     const q = query(collection(db, 'ratings'), where('lecturerId', '==', user.uid));
     const unsub = onSnapshot(q, (snap) => { setRatings(snap.docs.map(d => ({ id: d.id, ...d.data() }))); setLoading(false); });
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [user, registerSub]);
+  }, [user, ]);
 
   const filtered = ratings.filter(r => (r.courseCode || '').toLowerCase().includes(search.toLowerCase()));
   if (loading) return <ActivityIndicator style={styles.center} size="large" color="#007AFF" />;

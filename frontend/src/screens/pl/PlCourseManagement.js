@@ -6,7 +6,7 @@ import { useAuth, } from '../../context/AuthContext';
 import { db } from "../../config/firebase";
 
 export default function PlCourseManagement() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [courses, setCourses] = useState([]);
   const [lecturers, setLecturers] = useState([]);
   const [code, setCode] = useState('');

@@ -10,7 +10,7 @@ import * as Sharing from 'expo-sharing';
 const BACKEND_URL = "https://luct-reporting.onrender.com/api/reports/excel";
 
 export default function LecturerMonitoringScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [reports, setReports] = useState([]);
   const [search, setSearch] = useState('');
   const [loading, setLoading] = useState(true);
@@ -24,9 +24,9 @@ export default function LecturerMonitoringScreen() {
       setReports(data); setLoading(false);
     }, (error) => { if (error.code !== 'permission-denied') console.error(error); });
     
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [user, registerSub]);
+  }, [user, ]);
 
   const handleExport = async () => {
     setExporting(true);

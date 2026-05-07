@@ -10,7 +10,7 @@ import * as Sharing from 'expo-sharing';
 const BACKEND_URL = "https://luct-reporting.onrender.com/api/reports/excel";
 
 export default function PrlMonitoringScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [reports, setReports] = useState([]);
   const [faculty, setFaculty] = useState('');
   const [search, setSearch] = useState('');
@@ -29,9 +29,9 @@ export default function PrlMonitoringScreen() {
       setReports(snap.docs.map(d => ({ id: d.id, ...d.data() })));
       setLoading(false);
     }, (error) => { if (error.code !== 'permission-denied') console.error(error); });
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [faculty, registerSub]);
+  }, [faculty, ]);
 
   const handleExport = async () => {
     setExporting(true);

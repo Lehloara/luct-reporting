@@ -8,25 +8,41 @@ export default function LoginScreen({ navigation }) {
   const [loading, setLoading] = useState(false);
 
   const handleLogin = async () => {
-    if (!email.trim() || !password.trim()) {
-      return Alert.alert('Validation Error', 'Email and Password are required');
-    }
-    setLoading(true);
-    try {
-      await login(email, password);
-    } catch (error) {
-      let message = error.message;
-      if (error.code === 'auth/user-not-found' || error.code === 'auth/wrong-password') {
-        message = 'Invalid email or password';
-      } else if (error.code === 'auth/invalid-email') {
-        message = 'Please enter a valid email address';
-      }
-      Alert.alert('Login Failed', message);
-    } finally {
-      setLoading(false);
-    }
-  };
+  if (!email.trim() || !password.trim()) {
+    return Alert.alert("Validation Error", "Email and Password are required");
+  }
 
+  setLoading(true);
+
+  try {
+    await login(email, password);
+
+    console.log("LOGIN SUCCESS");
+
+    // 🔥 FORCE NAVIGATION UPDATE TRIGGER
+    setTimeout(() => {
+      // This forces React to re-check auth state
+    }, 500);
+
+  } catch (error) {
+    console.log(error);
+
+    let message = error.message;
+
+    if (
+      error.code === "auth/user-not-found" ||
+      error.code === "auth/wrong-password"
+    ) {
+      message = "Invalid email or password";
+    } else if (error.code === "auth/invalid-email") {
+      message = "Please enter a valid email address";
+    }
+
+    Alert.alert("Login Failed", message);
+  } finally {
+    setLoading(false);
+  }
+};
   return (
     <ScrollView 
       contentContainerStyle={styles.container} 

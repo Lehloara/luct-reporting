@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function PrlCoursesScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [courses, setCourses] = useState([]);
   const [faculty, setFaculty] = useState('');
   const [search, setSearch] = useState('');
@@ -21,9 +21,9 @@ export default function PrlCoursesScreen() {
     if (!faculty) return;
     const q = query(collection(db, 'courses'), where('faculty', '==', faculty));
     const unsub = onSnapshot(q, (snap) => { setCourses(snap.docs.map(d => ({ id: d.id, ...d.data() }))); setLoading(false); });
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [faculty, registerSub]);
+  }, [faculty, ]);
 
   const filtered = courses.filter(c => (c.courseCode || c.assignedLecturerName || '').toLowerCase().includes(search.toLowerCase()));
   if (loading || !faculty) return <ActivityIndicator style={styles.center} size="large" color="#007AFF" />;

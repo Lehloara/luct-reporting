@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function PlLecturesScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [lecturers, setLecturers] = useState([]);
   const [faculty, setFaculty] = useState('');
   const [search, setSearch] = useState('');
@@ -21,9 +21,9 @@ export default function PlLecturesScreen() {
     if (!faculty) return;
     const q = query(collection(db, 'users'), where('role', '==', 'lecturer'), where('faculty', '==', faculty));
     const unsub = onSnapshot(q, (snap) => { setLecturers(snap.docs.map(d => ({ id: d.id, ...d.data() }))); setLoading(false); });
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [faculty, registerSub]);
+  }, [faculty, ]);
 
   const filtered = lecturers.filter(l => (l.name || l.email || '').toLowerCase().includes(search.toLowerCase()));
   if (loading || !faculty) return <ActivityIndicator style={styles.center} size="large" color="#007AFF" />;

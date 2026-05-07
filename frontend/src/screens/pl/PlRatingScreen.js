@@ -6,7 +6,7 @@ import { useAuth } from '../../context/AuthContext';
 import SearchBar from '../../components/SearchBar';
 
 export default function PlRatingScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [ratings, setRatings] = useState([]);
   const [facultyCodes, setFacultyCodes] = useState([]);
   const [search, setSearch] = useState('');
@@ -32,9 +32,9 @@ export default function PlRatingScreen() {
       const all = snap.docs.map(d => ({ id: d.id, ...d.data() }));
       setRatings(all.filter(r => facultyCodes.includes(r.courseCode)));
     });
-    registerSub(unsub);
+    (unsub);
     return unsub;
-  }, [facultyCodes, registerSub]);
+  }, [facultyCodes, ]);
 
   const filtered = ratings.filter(r => (r.courseCode || r.lecturerName || r.feedback || '').toLowerCase().includes(search.toLowerCase()));
   if (loading) return <ActivityIndicator style={styles.center} size="large" color="#007AFF" />;

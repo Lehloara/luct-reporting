@@ -9,7 +9,7 @@ import * as Sharing from 'expo-sharing';
 const BACKEND_URL = "https://luct-reporting.onrender.com/api/reports/excel";
 
 export default function PlMonitoringScreen() {
-  const { user, registerSub } = useAuth();
+  const { user } = useAuth();
   const [stats, setStats] = useState({ courses: 0, reports: 0, reviewed: 0, pending: 0 });
   const [loading, setLoading] = useState(true);
   const [exporting, setExporting] = useState(false);
@@ -33,12 +33,12 @@ export default function PlMonitoringScreen() {
           setLoading(false);
         }
       );
-      registerSub(unsubCourses);
-      registerSub(unsubReports);
+      (unsubCourses);
+      (unsubReports);
       return () => { unsubCourses(); unsubReports(); };
     });
     return unsubUser;
-  }, [user, registerSub]);
+  }, [user, ]);
 
   const handleExport = async () => {
     setExporting(true);
