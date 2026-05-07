@@ -1,8 +1,5 @@
 import { initializeApp, getApps, getApp } from "firebase/app";
-import {
-  initializeAuth,
-  getReactNativePersistence,
-} from "firebase/auth";
+import {initializeAuth,getReactNativePersistence,} from "firebase/auth";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import { getFirestore } from "firebase/firestore";
 
@@ -14,10 +11,9 @@ const firebaseConfig = {
   messagingSenderId: process.env.EXPO_PUBLIC_FIREBASE_MESSAGING_SENDER_ID,
   appId: process.env.EXPO_PUBLIC_FIREBASE_APP_ID,
 };
-
+console.log("FIREBASE API:", process.env.EXPO_PUBLIC_FIREBASE_API_KEY);
 const app = getApps().length ? getApp() : initializeApp(firebaseConfig);
 
-// 🔥 FIXED AUTH (IMPORTANT PART)
 let auth;
 try {
   auth = initializeAuth(app, {
